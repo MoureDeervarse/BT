@@ -1,42 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public abstract class BaseNode
+namespace BT
 {
-	private List<BaseNode> nodeList;
-	private BaseNode activatedNode;
-	private string conditionID;
-	private string activeID;
-
-	// activeID에 해당하는 행동을 함
-	public abstract void Activate();
-	public abstract bool Check();
-	// 하위의 노드들을 Activate 시킴
-	public abstract bool Execute();
-
-	public virtual void Initialize()
+	public abstract class BaseNode
 	{
-		nodeList = new List<BaseNode>();
-	}
-	public void AddChildNode(BaseNode node, int priority = -1)
-	{
-		if(nodeList == null)
+		private List<BaseNode> childList;
+		private BaseNode activatedNode;
+
+		public abstract bool Check();
+		public abstract bool Execute();
+
+		public BaseNode()
 		{
-			// Logger call error
+			childList = new List<BaseNode>();
 		}
 
-		if(nodeList.Count < priority || priority < 0)
+		public void AddChildNode(BaseNode node, int priority = -1)
 		{
-			priority = nodeList.Count;
+			if(childList.Count < priority || priority < 0)
+			{
+				priority = childList.Count;
+			}
+			childList.Insert(priority, node);
 		}
 
-		nodeList.Insert(priority, node);
+		public void ClearActivateFlag()
+		{
+			activatedNode.ClearActivateFlag();
+			activatedNode = null;
+		}
 	}
-
-	public void ClearActivateFlag()
-	{
-		activatedNode.ClearActivateFlag();
-		activatedNode = null;
-	}
-
 }

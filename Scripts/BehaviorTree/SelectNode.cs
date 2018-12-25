@@ -1,7 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class SelectNode : BaseNode
+namespace BT
 {
+    public class SelectNode : BaseNode
+    {
+
+    }
 
 }
