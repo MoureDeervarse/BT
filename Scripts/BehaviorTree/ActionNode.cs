@@ -6,25 +6,21 @@ namespace BT
 {
 	public class ActionNode : BaseNode
 	{
-		private Action act;
+		private Action action;
 
-		public ActionNode(Action _act)
+		public ActionNode(Action _act, Func<bool> _evalFunc=null)
+		 : base(_evalFunc)
 		{
-			act = _act;
-		}
-
-		public override bool Check()
-		{
-			return true;
+			action = _act;
 		}
 
 		public override bool Execute()
 		{
-			if (act == null)
+			if (action == null)
 			{
 				return false;
 			}
-			act.Call();
+			action();
 			return true;
 		}
 	}
