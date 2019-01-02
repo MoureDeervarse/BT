@@ -5,31 +5,16 @@ namespace BT
 {
 	public class BehaviorTree : BaseNode
 	{
-		private float cumulInterval;
-		private float evalInterval;
-		public float EvalInterval {get {return evalInterval;}}
-
-		public BehaviorTree(float _evalInterval=0.1f) : base()
+		public BehaviorTree() : base()
 		{
-			cumulInterval = 0.0f;
-			evalInterval = _evalInterval;
-		}
-
-		public void Update(float _timeDelta)
-		{
-			cumulInterval += _timeDelta;
-			if (EvalInterval >= cumulInterval)
-			{
-				if (SearchTree())
-				{
-					Execute();
-				}
-				cumulInterval -= EvalInterval;
-			}
 		}
 
 		public override bool Execute()
 		{
+			if (activatedNode == null)
+			{
+				return false;
+			}
 			return activatedNode.Execute();
 		}
 
@@ -38,13 +23,13 @@ namespace BT
 		{
 			foreach(BaseNode node in childList)
 			{
-				if (node == activatedNode)
-				{
-					// return false;
-					continue;
-				}
 				if (node.Evaluate())
 				{
+					// pass evaluated node if that already activated
+					if (node == activatedNode)
+					{
+						return false;
+					}
 					ClearActivateFlag();
 					activatedNode = node;
 					return true;

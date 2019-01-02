@@ -28,13 +28,14 @@ namespace BT
             return evalFunc();
         }
 
-		public void AddChildNode(BaseNode node, int priority = -1)
+		public BaseNode AddChild(BaseNode node, int priority = -1)
 		{
 			if(priority < 0 || childList.Count < priority)
 			{
 				priority = childList.Count;
 			}
 			childList.Insert(priority, node);
+			return this;
 		}
 
 		public void ClearActivateFlag()
