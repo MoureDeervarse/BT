@@ -8,8 +8,7 @@ namespace BT
 	{
 		private Action action;
 
-		public ActionNode(Action _act, Func<bool> _evalFunc=null)
-		 : base(_evalFunc)
+		public ActionNode(Action _act, Func<bool> _evalFunc=null) : base(_evalFunc)
 		{
 			action = _act;
 		}

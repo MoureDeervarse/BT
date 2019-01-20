@@ -19,7 +19,7 @@ namespace BT
 		}
 
 		// if eval func is null, it is assumed to be right
-        public bool Evaluate()
+        public virtual bool Evaluate()
         {
             if (evalFunc == null)
             {
